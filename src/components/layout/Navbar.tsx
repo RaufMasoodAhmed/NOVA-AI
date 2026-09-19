@@ -17,16 +17,31 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+
+      // Track whether navbar is scrolled past top threshold
+      setScrolled(currentScrollY > 20);
+
+      // Scroll Direction Logic:
+      // Show if scrolling UP or near top (< 50px); hide if scrolling DOWN (> 50px)
+      if (currentScrollY < 50 || currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -53,14 +68,18 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 lg:px-8 pt-4 pb-2 transition-all duration-300 pointer-events-none">
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 px-4 sm:px-6 lg:px-8 pt-4 pb-2 transition-all duration-300 ease-in-out pointer-events-none transform ${isVisible
+          ? "translate-y-0 opacity-100"
+          : "-translate-y-24 opacity-0"
+          }`}
+      >
         <nav
           aria-label="Main Navigation"
-          className={`mx-auto max-w-7xl h-14 sm:h-16 px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-500 ${
-            scrolled
-              ? "bg-[#0B0B0D]/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-              : "bg-transparent border border-transparent"
-          }`}
+          className={`mx-auto max-w-7xl h-14 sm:h-16 px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-500 ${scrolled
+            ? "bg-[#0B0B0D]/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+            : "bg-transparent border border-transparent"
+            }`}
         >
           {/* Brand Logo */}
           <Link
