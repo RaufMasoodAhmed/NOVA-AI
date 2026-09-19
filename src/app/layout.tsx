@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GrainOverlay from "@/components/ui/GrainOverlay";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+import { ThemeProvider } from "@/context/ThemeContext";
+import NovaAssistant from "@/components/assistant/NovaAssistant";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +19,10 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFC" },
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -65,13 +70,39 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} dark antialiased`}
     >
-      <body className="relative min-h-screen bg-[#050505] text-[#F5F5F5] font-sans selection:bg-blue-500/25 selection:text-white">
-        <SmoothScroll>
-          <GrainOverlay />
-          {children}
-        </SmoothScroll>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('nova-theme');
+                  var theme = saved || 'dark';
+                  if (theme === 'system') {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  var root = document.documentElement;
+                  root.classList.remove('dark', 'light');
+                  root.classList.add(theme);
+                  root.setAttribute('data-theme', theme);
+                  root.style.colorScheme = theme;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans selection:bg-blue-500/25 selection:text-white">
+        <ThemeProvider>
+          <SmoothScroll>
+            <GrainOverlay />
+            {children}
+            <NovaAssistant />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

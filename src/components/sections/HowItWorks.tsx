@@ -104,19 +104,17 @@ export default function HowItWorks() {
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.6, delay: 0.1 * idx }}
                   onClick={() => setActiveStep(idx)}
-                  className={`p-6 sm:p-8 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                    isSelected
-                      ? "bg-[#111113] border-white/20 shadow-[0_16px_40px_rgba(0,0,0,0.6)]"
-                      : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/10"
-                  }`}
+                  className={`p-6 sm:p-8 rounded-2xl border transition-all duration-300 cursor-pointer ${isSelected
+                    ? "bg-[#111113] border-white/20 shadow-[0_16px_40px_rgba(0,0,0,0.6)]"
+                    : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/10"
+                    }`}
                 >
                   <div className="flex items-center gap-4 mb-3">
                     <span
-                      className={`text-xs font-mono font-bold tracking-widest px-2.5 py-1 rounded-md border ${
-                        isSelected
-                          ? "bg-blue-500/10 text-blue-400 border-blue-500/30"
-                          : "bg-white/[0.04] text-neutral-500 border-white/[0.06]"
-                      }`}
+                      className={`text-xs font-mono font-bold tracking-widest px-2.5 py-1 rounded-md border ${isSelected
+                        ? "bg-blue-500/10 text-blue-400 border-blue-500/30"
+                        : "bg-white/[0.04] text-neutral-500 border-white/[0.06]"
+                        }`}
                     >
                       {s.step}
                     </span>
@@ -168,7 +166,7 @@ export default function HowItWorks() {
                   <div className="w-3 h-3 rounded-full bg-white/20" />
                   <div className="w-3 h-3 rounded-full bg-white/20" />
                   <span className="ml-2 text-xs font-mono text-neutral-400">
-                    STAGE {STEPS[activeStep].step} // {STEPS[activeStep].title}
+                    STAGE {STEPS[activeStep].step} {"//"} {STEPS[activeStep].title}
                   </span>
                 </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">

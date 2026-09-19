@@ -48,7 +48,7 @@ export default function SpotlightCard({
         className="pointer-events-none absolute -inset-px rounded-2xl transition-opacity duration-300"
         style={{
           opacity: isHovered ? 0.6 : 0,
-          background: `radial-gradient(280px circle at ${coords.x}px ${coords.y}px, rgba(255, 255, 255, 0.18), transparent 60%)`,
+          background: `radial-gradient(280px circle at ${coords.x}px ${coords.y}px, var(--border-light), transparent 60%)`,
           mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           maskComposite: "exclude",

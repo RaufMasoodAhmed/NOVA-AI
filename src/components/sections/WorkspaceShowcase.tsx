@@ -64,11 +64,10 @@ export default function WorkspaceShowcase() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`relative flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${
-                    isActive
-                      ? "text-white shadow-sm"
-                      : "text-neutral-400 hover:text-white hover:bg-white/[0.04]"
-                  }`}
+                  className={`relative flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all whitespace-nowrap cursor-pointer ${isActive
+                    ? "text-white shadow-sm"
+                    : "text-neutral-400 hover:text-white hover:bg-white/[0.04]"
+                    }`}
                 >
                   {isActive && (
                     <motion.div
@@ -254,7 +253,7 @@ export default function WorkspaceShowcase() {
                   <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-neutral-300 space-y-1">
                     <span className="text-[10px] text-blue-400 uppercase">Preview</span>
                     <p className="line-clamp-3 text-neutral-400">
-                      "Section 4: Multi-region consensus mechanism with optimistic read replicas..."
+                      &quot; Section 4: Multi-region consensus mechanism with optimistic read replicas...&quot;
                     </p>
                   </div>
                   <button
@@ -278,7 +277,7 @@ export default function WorkspaceShowcase() {
                     </p>
                   </div>
                   <div className="h-24 rounded-xl bg-gradient-to-tr from-neutral-900 via-neutral-800 to-violet-950/40 border border-white/10 p-3 flex flex-col justify-end">
-                    <span className="text-[10px] font-mono text-violet-300">Prompt: "Dark luxury obsidian crystal..."</span>
+                    <span className="text-[10px] font-mono text-violet-300">Prompt: &quot;Dark luxury obsidian crystal...&quot;</span>
                   </div>
                   <button
                     type="button"

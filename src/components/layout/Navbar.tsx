@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const NAV_LINKS = [
   { label: "Product", href: "#workspace" },
@@ -90,6 +91,7 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="#login"
               className="text-xs lg:text-sm font-medium text-neutral-400 hover:text-white px-3 py-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-full"
@@ -102,16 +104,19 @@ export default function Navbar() {
             </MagneticButton>
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 text-white hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Hamburger & Theme Toggle Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.05] border border-white/10 text-white hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -174,8 +179,12 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Bottom Actions */}
+            {/* Bottom Actions & Theme Switcher */}
             <div className="flex flex-col gap-3 pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between px-2 py-1 mb-1">
+                <span className="text-sm font-medium text-neutral-400">Interface Theme</span>
+                <ThemeToggle showDropdown={true} />
+              </div>
               <Link
                 href="#workspace"
                 onClick={() => setMobileMenuOpen(false)}
